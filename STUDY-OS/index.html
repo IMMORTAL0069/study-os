@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b18">
+  <meta name="description" content="Your personal academic command centre.">
+  <title>STUDY OS — Academic Command Centre</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="STUDY OS home">
+        <span class="brand-mark">S</span><span>STUDY<span class="accent"> OS</span><small>ACADEMIC COMMAND CENTRE</small></span>
+      </a>
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="nav">
+        <button class="nav-link active" data-view="dashboard"><span>◈</span> Dashboard</button>
+        <button class="nav-link" data-view="tasks"><span>▤</span> Tasks</button>
+        <button class="nav-link" data-view="syllabus"><span>▦</span> Syllabus</button>
+        <button class="nav-link" data-view="focus"><span>◷</span> Focus room</button>
+        <button class="nav-link" data-view="history"><span>⌁</span> Study history</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="mini-status"><span class="pulse"></span><span>LOCAL MODE ACTIVE</span></div>
+        <p>Your progress is saved on this device.</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><div class="eyebrow">YOUR PERSONAL STUDY SYSTEM</div><h1 id="page-title">Dashboard</h1></div>
+        <div class="top-actions"><span id="today-label"></span><button class="icon-button" id="backup-btn" title="Backup data">⇩</button></div>
+      </header>
+
+      <section class="view active" id="view-dashboard">
+        <div class="hero panel">
+          <div>
+            <div class="eyebrow cyan">SYSTEM ONLINE / STUDENT MODE</div>
+            <h2>Make today <span class="gradient-text">count.</span></h2>
+            <p>Your next step matters more than yesterday's missed targets.</p>
+            <button class="primary-btn" data-go="tasks">View today's missions <span>→</span></button>
+          </div>
+          <div class="hero-orb"><div class="orb-inner">STUDY<br><b>OS</b></div></div>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card panel"><span class="stat-icon">◷</span><span class="stat-name">STUDY TIME TODAY</span><strong id="stat-time">0m</strong><small>Recorded focus time</small></article>
+          <article class="stat-card panel"><span class="stat-icon">✓</span><span class="stat-name">TASKS COMPLETED</span><strong id="stat-tasks">0</strong><small id="stat-task-sub">0 pending today</small></article>
+          <article class="stat-card panel"><span class="stat-icon">▦</span><span class="stat-name">SYLLABUS COMPLETED</span><strong id="stat-syllabus">0%</strong><small>Across all subjects</small></article>
+        </div>
+        <div class="content-grid">
+          <article class="panel section-card">
+            <div class="section-heading"><div><div class="eyebrow">PRIORITY QUEUE</div><h3>Today's tasks</h3></div><button class="text-btn" data-go="tasks">View all →</button></div>
+            <div id="dashboard-tasks" class="stack empty-state">No tasks yet. Add your first mission.</div>
+          </article>
+          <article class="panel section-card">
+            <div class="section-heading"><div><div class="eyebrow">QUICK ACTION</div><h3>Start focusing</h3></div></div>
+            <div class="quick-focus"><div class="quick-time">25<span>MIN</span></div><p>One focused session. One small win.</p><button class="secondary-btn" data-go="focus">Open focus room →</button></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="view-tasks">
+        <div class="panel section-card">
+          <div class="section-heading"><div><div class="eyebrow">MISSION CONTROL</div><h2>Task manager</h2><p class="muted">Break your study goals into manageable missions.</p></div></div>
+          <form id="task-form" class="task-form">
+            <input id="task-title" type="text" maxlength="90" placeholder="e.g. Revise Carbon and its Compounds" required>
+            <select id="task-subject"><option value="General">General</option><option>Mathematics</option><option>Science</option><option>Social Science</option><option>English</option><option>Bengali</option><option>Artificial Intelligence</option></select>
+            <select id="task-priority"><option value="Medium">Medium priority</option><option value="High">High priority</option><option value="Low">Low priority</option></select>
+            <button class="primary-btn" type="submit">+ Add task</button>
+          </form>
+          <div class="filter-row"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="pending">Pending</button><button class="filter" data-filter="done">Completed</button></div>
+          <div id="task-list" class="stack empty-state">No tasks yet.</div>
+        </div>
+      </section>
+
+      <section class="view" id="view-syllabus">
+        <div class="panel section-card">
+          <div class="section-heading"><div><div class="eyebrow">CBSE CLASS 10</div><h2>Syllabus tracker</h2><p class="muted">Mark a chapter as not started, in progress or completed.</p></div><div class="total-pill" id="syllabus-total">0% complete</div></div>
+          <div id="subjects-list" class="subjects-list"></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-focus">
+        <div class="focus-layout">
+          <article class="panel timer-panel">
+            <div class="eyebrow">DEEP WORK PROTOCOL</div><h2>Focus room</h2>
+            <p class="muted">Choose a duration, start your session and stay with one task.</p>
+            <div class="timer-ring"><div><strong id="timer-display">25:00</strong><span>MINUTES REMAINING</span></div></div>
+            <div class="duration-options"><button class="duration active" data-min="25">25 min</button><button class="duration" data-min="45">45 min</button><button class="duration" data-min="60">60 min</button></div>
+            <div class="timer-actions"><button class="primary-btn" id="timer-start">Start session</button><button class="secondary-btn" id="timer-reset">Reset</button></div>
+            <p class="timer-note" id="timer-status">Ready when you are.</p>
+          </article>
+          <article class="panel section-card">
+            <div class="eyebrow">SESSION NOTES</div><h3>What are you working on?</h3>
+            <input id="session-topic" class="full-input" placeholder="e.g. Science — Carbon compounds">
+            <p class="muted small">Completed focus sessions are added to your study history automatically. You can also log time manually below.</p>
+            <div class="divider"></div>
+            <h3>Quick time log</h3>
+            <form id="manual-log-form" class="manual-form"><input id="manual-minutes" type="number" min="1" max="600" placeholder="Minutes" required><button class="secondary-btn" type="submit">Save study time</button></form>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="view-history">
+        <div class="panel section-card">
+          <div class="section-heading"><div><div class="eyebrow">YOUR CONSISTENCY</div><h2>Study history</h2><p class="muted">A record of the work you have put in.</p></div><button class="text-btn" id="export-btn">Export backup ↓</button></div>
+          <div class="history-summary"><div><span>TOTAL STUDY TIME</span><strong id="history-total">0m</strong></div><div><span>SESSIONS LOGGED</span><strong id="history-count">0</strong></div></div>
+          <div id="history-list" class="stack empty-state">Your completed sessions will appear here.</div>
+          <div class="divider"></div>
+          <div class="restore-row"><div><h3>Restore a backup</h3><p class="muted small">Import a previously exported STUDY OS JSON file.</p></div><label class="secondary-btn file-label">Choose file<input type="file" id="restore-file" accept=".json,application/json" hidden></label></div>
+        </div>
+      </section>
+      <footer>STUDY OS <span>v1.0</span> <span class="footer-right">BUILT FOR PROGRESS, NOT PERFECTION.</span></footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
