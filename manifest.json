@@ -1,0 +1,12 @@
+{
+  "name": "STUDY OS",
+  "short_name": "STUDY OS",
+  "description": "Your personal academic command centre",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#080a14",
+  "theme_color": "#090b18",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
